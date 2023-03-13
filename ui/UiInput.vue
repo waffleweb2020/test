@@ -5,6 +5,7 @@
         :id="name"
         :type='type'
         @input="emit('update:modelValue', $event.target.value)"
+        required
         :value="modelValue"
     />
     <label :for="name" :class="{'label-active': modelValue.length > 0}">{{placeholder}}</label>
@@ -13,6 +14,7 @@
     <input
         :id="name"
         :type='type'
+        required
         @input="emit('update:modelValue', $event.target.value)"
         :value="modelValue"
     />
