@@ -44,6 +44,17 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 1s;
+}
+
+.slide-fade-enter-from, .slide-fade-leave-to {
+  opacity: 0;
+}
+.slide-fade-enter-to, .slide-fade-leave-from {
+  opacity: 1;
+}
   .app {
     height: 100vh;
     overflow: hidden;
