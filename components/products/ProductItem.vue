@@ -7,10 +7,11 @@
     <div class="title">{{item.title}}</div>
     <p class="subtitle">{{item.subtitle}}</p>
   </div>
-  <div v-if="isOpened" class="modal">
-    <div class="modal-window">
-      <div class="detail">
-        <div v-for="detail of details" :key="detail.id" :class="{'detail-item-pro': detail.plan !== 'Классический'}" class="detail-item">
+  <transition name="fade">
+    <div v-if="isOpened" class="modal">
+      <div class="modal-window">
+        <div class="detail">
+          <div v-for="detail of details" :key="detail.id" :class="{'detail-item-pro': detail.plan !== 'Классический'}" class="detail-item">
           <span class="detail-item-plan">
             {{detail.plan}}
             <span v-if="detail.plan === 'Классический'" class="detail-classic">
@@ -23,20 +24,21 @@
             </span>
           </span>
 
-          <span class="detail-item-result">Результат:</span>
+            <span class="detail-item-result">Результат:</span>
 
-          <ul class="detail-list">
-            <li v-for="detail_item of detail.items" :key="detail_item" :class="{'detail-list-item-pro': detail.plan !== 'Классический'}" class="detail-list-item">{{detail_item}}</li>
-          </ul>
+            <ul class="detail-list">
+              <li v-for="detail_item of detail.items" :key="detail_item" :class="{'detail-list-item-pro': detail.plan !== 'Классический'}" class="detail-list-item">{{detail_item}}</li>
+            </ul>
 
-          <span class="detail-item-price">{{detail.price}}</span>
+            <span class="detail-item-price">{{detail.price}}</span>
 
-          <UiButton @click.native="useRouter().push('/contacts')" theme="light" :style="{justifySelf:'center'}"/>
+            <UiButton @click.native="useRouter().push('/contacts')" theme="light" :style="{justifySelf:'center'}"/>
+          </div>
         </div>
       </div>
+      <div @click="isOpened = false" class="modal-bg"></div>
     </div>
-    <div @click="isOpened = false" class="modal-bg"></div>
-  </div>
+  </transition>
 </template>
 
 <script setup lang="ts">
@@ -104,6 +106,17 @@ onMounted(() => isMounted.value = true)
 </script>
 
 <style lang="scss" scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s;
+}
+
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+.fade-enter-to, .fade-leave-from {
+  opacity: 1;
+}
   @keyframes show {
     0% {
       opacity: 0;
